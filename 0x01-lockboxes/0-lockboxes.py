@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
-
+Lockbox
 """
 
 
 def canUnlockAll(boxes):
     """
-
+    Lockbox
     """
     open_boxes = [False] * len(boxes)
     open_boxes[0] = True
