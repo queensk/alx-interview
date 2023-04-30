@@ -8,18 +8,16 @@ def canUnlockAll(boxes):
     """
     Lockbox
     """
-    open_boxes = [False] * len(boxes)
-    open_boxes[0] = True
+    position = 0
+    unlocked = {}
 
-    keys = boxes[0]
-    while keys:
-        key = keys.pop()
-
-        if not open_boxes[key]:
-            open_boxes[key] = True
-            keys.extend(boxes[key])
-
-    if all(open_boxes):
-        return True
-    else:
-        return False
+    for box in boxes:
+        if len(box) == 0 or position == 0:
+            unlocked[position] = "always_unlocked"
+        for key in box:
+            if key < len(boxes) and key != position:
+                unlocked[key] = key
+        if len(unlocked) == len(boxes):
+            return True
+        position += 1
+    return False
