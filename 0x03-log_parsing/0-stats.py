@@ -4,6 +4,7 @@ Read stdin
 """
 import sys
 
+
 def print_stats(total_size, status_codes):
     """
     print stats code
@@ -13,6 +14,7 @@ def print_stats(total_size, status_codes):
     for code in sorted_status_codes:
         count = status_codes[code]
         print("{}: {}".format(code, count))
+
 
 def process_logs():
     """
@@ -44,5 +46,6 @@ def process_logs():
         pass
 
     print_stats(total_size, status_codes)
+
 
 process_logs()
