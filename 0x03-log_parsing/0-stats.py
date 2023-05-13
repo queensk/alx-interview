@@ -48,4 +48,5 @@ def process_logs():
     print_stats(total_size, status_codes)
 
 
-process_logs()
+if __name__ == "__main__":
+    process_logs()
