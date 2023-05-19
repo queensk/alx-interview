@@ -8,23 +8,22 @@ def validUTF8(data):
     """
     Determines if a given data set represents a valid UTF-8 encoding.
     """
-    n_bytes = 0
-    mask1 = 1 << 7
-    mask2 = 1 << 6
-    for num in data:
-        num = num & 0xFF
-
-        if n_bytes == 0:
-            while mask1 & num:
-                n_bytes += 1
-                mask1 = mask1 >> 1
-            if n_bytes == 0:
-                continue
-            if n_bytes > 4 or n_bytes == 1:
+    data = iter(data)
+    for leading_byte in data:
+        leading_ones = _count_leading_ones(leading_byte)
+        if leading_ones in [1, 7, 8]:
+            return False
+        for _ in range(leading_ones - 1):
+            trailing_byte = next(data, None)
+            if trailing_byte is None or trailing_byte >> 6 != 0b10:
                 return False
-        else:
-            if not (num & mask1 and not (num & mask2)):
-                return False
+    return True
 
-        n_bytes -= 1
-    return n_bytes == 0
+
+def _count_leading_ones(byte):
+    """Counts the leading ones."""
+
+    for i in range(8):
+        if byte >> 7 - i == 0b11111111 >> 7 - i & ~1:
+            return i
+    return 8
