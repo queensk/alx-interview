@@ -21,7 +21,9 @@ def validUTF8(data):
 
 
 def _count_leading_ones(byte):
-    """Counts the leading ones."""
+    """
+    Counts the leading ones.
+    """
 
     for i in range(8):
         if byte >> 7 - i == 0b11111111 >> 7 - i & ~1:

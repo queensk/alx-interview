@@ -3,11 +3,13 @@
 Read stdin
 """
 import sys
+import random
+from time import sleep
 
 
 def print_stats(total_size, status_codes):
     """
-    print stats code
+    Print stats code
     """
     print("File size: {}".format(total_size))
     sorted_status_codes = sorted(status_codes.keys())
@@ -18,7 +20,7 @@ def print_stats(total_size, status_codes):
 
 def process_logs():
     """
-    print logs
+    Process logs
     """
     total_size = 0
     status_codes = {}
@@ -42,10 +44,15 @@ def process_logs():
             total_size += size
             status_codes[parts[-2]] = status_codes.get(parts[-2], 0) + 1
 
+            # Add a random sleep to simulate processing time
+            sleep(random.random())
+
+        print_stats(total_size, status_codes)
     except KeyboardInterrupt:
+        # print_stats(total_size, status_codes)
         pass
 
-    print_stats(total_size, status_codes)
+    
 
 
 if __name__ == "__main__":
