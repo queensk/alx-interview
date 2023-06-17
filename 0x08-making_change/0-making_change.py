@@ -2,14 +2,16 @@
 """
 Change comes from within
 """
+
+
 def makeChange(coins, total):
     """
     Return: fewest number of coins needed to meet total
     """
     if total <= 0:
         return 0
-    
-    coins.sort(reverse = True)
+
+    coins.sort(reverse=True)
     dp = [float('inf')] * (total + 1)
     dp[0] = 0
 
