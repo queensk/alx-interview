@@ -1,4 +1,4 @@
-# 0x07. Rotate 2D Matrix
+# 0x08. Rotate 2D Matrix
 
 ## Description
 
