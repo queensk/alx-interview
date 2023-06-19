@@ -1,17 +1,25 @@
 #!/usr/bin/python3
 """
-Rotate 2D Matrix
+Change comes from within
 """
 
 
-def rotate_2d_matrix(matrix):
+def makeChange(coins, total):
     """
-    Rotate a matrix by 90 degrees clockwise,
+    Return: fewest number of coins needed to meet total
     """
-    # transpose the matrix
-    for i in range(len(matrix)):
-        for j in range(i, len(matrix)):
-            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-    # reverse each row
-    for row in matrix:
-        row.reverse()
+    if total <= 0:
+        return 0
+
+    coins.sort(reverse=True)
+    dp = [float('inf')] * (total + 1)
+    dp[0] = 0
+
+    for coin in coins:
+        for amount in range(coin, total + 1):
+            dp[amount] = min(dp[amount], dp[amount - coin] + 1)
+
+    if dp[total] == float('inf'):
+        return -1
+
+    return dp[total]
