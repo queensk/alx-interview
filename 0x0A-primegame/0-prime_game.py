@@ -10,36 +10,26 @@ def isWinner(x, nums):
     """
 
     # A helper function that returns True if n is prime, False otherwise
-    def is_prime(n):
-        if n <= 1:
-            return False
-        for i in range(2, int(n**0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
-
-    # A helper function that returns the number of primes in the range [1, n]
-    def count_primes(n):
-        count = 0
-        for i in range(1, n + 1):
-            if is_prime(i):
-                count += 1
-        return count
-
-    # A variable to keep track of the score difference between Maria and Ben
-    score = 0
-
-    # Loop through each round
-    for n in nums:
-        primes = count_primes(n)
-        if primes % 2 == 1:
-            score += 1
-        else:
-            score -= 1
-
-    if score > 0:
-        return "Maria"
-    elif score < 0:
-        return "Ben"
-    else:
+    if not nums or x < 1:
         return None
+    n = max(nums)
+    test_case = [True for _ in range(max(n + 1, 2))]
+    for i in range(2, int(pow(n, 0.5)) + 1):
+        if not test_case[i]:
+            continue
+        for j in range(i * i, n + 1, i):
+            test_case[j] = False
+    test_case[0] = test_case[1] = False
+    c = 0
+    for i in range(len(test_case)):
+        if test_case[i]:
+            c += 1
+        test_case[i] = c
+    player1 = 0
+    for n in nums:
+        player1 += test_case[n] % 2 == 1
+    if player1 * 2 == len(nums):
+        return None
+    if player1 * 2 > len(nums):
+        return "Maria"
+    return "Ben"
