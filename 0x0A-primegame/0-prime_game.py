@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""
+0x0A. Prime Game
+"""
+
+
 def isWinner(x, nums):
     """
     Determines the winner of the most rounds of a prime game
